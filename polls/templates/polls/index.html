@@ -1,0 +1,57 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>POLLS</title>
+    <style>
+        /* Center the heading and table in the middle of the page */
+        body {
+            text-align: center;
+        }
+        table {
+            margin: 0 auto;
+            width: 80%; /* Adjust the width as needed */
+            text-align: center; /* Center-align table content */
+        }
+        table th, table td {
+            padding: 8px 12px; /* Add padding for better spacing */
+        }
+        /* Style the "Go" link in green */
+        table a.go {
+            color: green;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Question List</h1>
+
+    {% if latest_question_list %}
+    <table border="1">
+        <thead>
+            <tr>
+                <th>List</th>
+                <th>Questions</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in latest_question_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ question.question_text }}</td>
+                <td><a href="{% url 'polls:detail' question.id %}" class="go">Go</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No polls are available.</p>
+    {% endif %}
+</body>
+</html>
